@@ -1419,7 +1419,11 @@ std::vector<std::string> parse_nonpositional_args(Context<E> &ctx) {
     } else if (read_arg("l") || read_arg("library")) {
       remaining.push_back("-l" + std::string(arg));
     } else if (read_arg("script") || read_arg("T")) {
+      // christylee: skip linker script due to missing linker script semantics
+      Warn(ctx) << "Ignoring linker script " << arg;
+      /*
       remaining.emplace_back(arg);
+      */
     } else if (read_flag("push-state")) {
       remaining.emplace_back("--push-state");
     } else if (read_flag("pop-state")) {
